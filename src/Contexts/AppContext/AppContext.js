@@ -23,11 +23,15 @@ export class AppProvider extends React.Component{
             menuItemsContext: this.props.menuItemsContext,
             itemIngredientsContext: this.props.itemIngredientsContext,
             orderItemsContext: this.props.orderItemsContext,
-            ordersContext: this.props.orderItemsContext
+            ordersContext: this.props.ordersContext,
+            cartContext: this.props.cartContext
         };
 
+        console.log(value)
+        console.log(this.props.ordersContext)
+
         return (
-            <AppContext.Provider>
+            <AppContext.Provider value={value}>
                 {this.props.children}
             </AppContext.Provider>
         );

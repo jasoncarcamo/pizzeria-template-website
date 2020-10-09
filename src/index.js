@@ -9,6 +9,8 @@ import ItemIngredientsContext, {ItemIngredientsProvider} from "./Contexts/ItemIn
 import MenuItemsContext, {MenuItemsProvider} from "./Contexts/MenuItemsContext/MenuItemsContext";
 import OrderItemsContext, {OrderItemsProvider} from "./Contexts/OrderItemsContext/OrderItemsContext";
 import OrdersContext, {OrdersProvider} from "./Contexts/OrdersContext/OrdersContext";
+import CartContext, {CartProvider} from "./Contexts/CartContext/CartContext";
+import UserContext, {UserProvider} from "./Contexts/UserContext/UserContext";
 
 ReactDOM.render(
     <BrowserRouter>
@@ -25,13 +27,28 @@ ReactDOM.render(
                                             <OrderItemsProvider>
                                                 <OrderItemsContext.Consumer>
                                                     { orderItemsContext => (
-                                                        <AppProvider
-                                                            menuItemsContext={menuItemsContext}
-                                                            itemIngredientsContext={itemIngredientsContext}
-                                                            ordersContext={ordersContext}
-                                                            orderItemsContext={orderItemsContext}>
-                                                            <App/>
-                                                        </AppProvider>
+                                                        <CartProvider
+                                                            ordersContext={ordersContext}>
+                                                                <CartContext.Consumer>
+                                                                    { cartContext => (
+                                                                        <UserProvider>
+                                                                            <UserContext.Consumer>
+                                                                                { userContext => (
+                                                                                    <AppProvider
+                                                                                        userContext={userContext}
+                                                                                        menuItemsContext={menuItemsContext}
+                                                                                        itemIngredientsContext={itemIngredientsContext}
+                                                                                        ordersContext={ordersContext}
+                                                                                        orderItemsContext={orderItemsContext}
+                                                                                        cartContext={cartContext}>
+                                                                                            <App/>
+                                                                                    </AppProvider>
+                                                                                )}
+                                                                            </UserContext.Consumer>
+                                                                        </UserProvider>
+                                                                    )}
+                                                                </CartContext.Consumer>
+                                                        </CartProvider>
                                                     )}
                                                 </OrderItemsContext.Consumer>
                                             </OrderItemsProvider>
