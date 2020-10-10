@@ -20,12 +20,12 @@ export class OrdersProvider extends React.Component{
         super(props);
         this.state = {
             currentOrder: {},
+            'Pasta': {},
             orders: {}
         };
     };
 
     getOrders = (order)=>{
-
     }
 
     // adds an order to state
@@ -62,12 +62,11 @@ export class OrdersProvider extends React.Component{
 
     // sets current order
     setCurrentOrder = (order)=>{
-        console.log("Clicked")
         this.updateCurrentOrder(order);
     }
 
     // updates current order
-    updateCurrentOrder = (order)=>{
+    updateCurrentOrder = (order)=>{ 
         this.setState({
             currentOrder: order
         });

@@ -1,33 +1,22 @@
 import React from 'react';
-import logo from '../logo.svg';
 import './App.css';
 import AppContext from "../Contexts/AppContext/AppContext";
 
 class App extends React.Component {
 
-  static contextType = AppContext;
+    static contextType = AppContext;
 
-  render(){
-    console.log(this.context);
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
-}
+    render(){
+        return (
+            <>
+
+                <main>
+                    <button onClick={()=>{ this.context.cartContext.updateCurrentOrder({id: 1, type: "Pasta"})}}>OK</button>
+                </main>
+                
+            </>
+        );
+    };
+};
 
 export default App;

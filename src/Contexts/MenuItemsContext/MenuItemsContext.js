@@ -32,7 +32,15 @@ export class MenuItemsProvider extends React.Component{
     updateMenuItem = (menuItem)=>{
         const menuItems = this.state.menuItems;
 
-        menuItems[menuItem.id] = menuItem;
+        if(menuItems[menuItem.category] === undefined){
+            menuItems[menuItem.category] = {};
+        };
+
+        if(menuItems[menuItem.category][menuItem.id] === undefined){
+            menuItems[menuItem.category][menuItem.id] = {}; 
+        };
+
+        menuItems[menuItem.category][menuItem.id] = menuItem;
 
         this.setState({
             menuItems
@@ -43,7 +51,15 @@ export class MenuItemsProvider extends React.Component{
     removeMenuItem = (menuItem)=>{
         const menuItems = this.state.menuItems;
 
-        delete menuItems[menuItem.id];
+        if(menuItems[menuItem.category] === undefined){
+            return;
+        };
+
+        if(menuItems[menuItem.category][menuItem.id] === undefined){
+            return; 
+        };
+
+        delete menuItems[menuItem.category][menuItem.id];
 
         this.setState({
             menuItems

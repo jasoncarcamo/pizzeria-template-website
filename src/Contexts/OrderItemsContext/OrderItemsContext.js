@@ -30,7 +30,15 @@ export class OrderItemsProvider extends React.Component{
     updateOrderItem = (orderItem)=>{
         const orderItems = this.state.orderItems;
 
-        orderItems[orderItem.id] = orderItem;
+        if(orderItems[orderItem.order_id]=== undefined){
+            orderItems[orderItem.order_id] = {};
+        };
+
+        if(orderItems[orderItem.order_id][orderItem.id] === undefined){
+            orderItems[orderItem.order_id][orderItem.id] = {};
+        };
+
+        orderItems[orderItem.order_id][orderItem.id] = orderItem;
 
         this.setState({
             orderItems
@@ -41,7 +49,15 @@ export class OrderItemsProvider extends React.Component{
     removeOrderItem = (orderItem)=>{
         const orderItems = this.state.orderItems;
 
-        delete orderItems[orderItem.id];
+        if(orderItems[orderItem.order_id]=== undefined){
+            return;
+        };
+
+        if(orderItems[orderItem.order_id][orderItem.id] === undefined){
+            return;
+        };
+
+        delete orderItems[orderItem.order_id][orderItem.id];
 
         this.setState({
             orderItems

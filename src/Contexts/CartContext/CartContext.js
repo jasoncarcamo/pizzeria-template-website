@@ -10,17 +10,13 @@ const CartContext = React.createContext({
 
 export default CartContext;
 
+
+// recieves current order info from orders context recieved from props
 export class CartProvider extends React.Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            currentOrder: {}
-        };
-    };
 
     // retrieves current order
     getCurrentOrder = ()=>{
-        return this.context.ordersContext.getCurrentOrder();
+        return this.props.ordersContext.getCurrentOrder();
     }
 
     // sets current order
@@ -30,12 +26,12 @@ export class CartProvider extends React.Component{
 
     // updates current order
     updateCurrentOrder = (order)=>{
-        this.context.ordersContext.updateCurrentOrder(order);
+        this.props.ordersContext.updateCurrentOrder(order);
     }
 
     // sets current order to default
     removeCurrentOrder = ()=>{
-        this.context.ordersContext.removeCurrentOrder();
+        this.props.ordersContext.removeCurrentOrder();
     }
 
     render(){
