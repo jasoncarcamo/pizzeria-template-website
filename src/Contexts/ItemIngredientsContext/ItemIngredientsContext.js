@@ -2,7 +2,7 @@ import React from "react";
 
 const ItemIngredientsContext = React.createContext({
     itemIngredients: {},
-    getIngredients: ()=>{},
+    getItemIngredients: ()=>{},
     addIngredient: ()=>{},
     updateIngredient: ()=>{},
     removeIngredient: ()=>{}
@@ -18,18 +18,18 @@ export class ItemIngredientsProvider extends React.Component{
         };
     };
 
-    // ets all ingredients
-    getIngredients = ()=>{
+    // gets all ingredients
+    getItemIngredients = ()=>{
         return this.state.itemIngredients;
     }
 
     // adds item ingredient
-    addIngredient = (itemIngredient)=>{
+    addItemIngredient = (itemIngredient)=>{
         this.updateIngredient(itemIngredient);
     }
 
     // updates an ingredient
-    updateIngredient = (itemIngredient)=>{
+    updateItemIngredient = (itemIngredient)=>{
         const itemIngredients = this.state.itemIngredients;
 
         itemIngredients[itemIngredient.id] = itemIngredient;
@@ -40,7 +40,7 @@ export class ItemIngredientsProvider extends React.Component{
     }
 
     // removes an item ingredient
-    removeIngredient = (itemIngredient)=>{
+    removeItemIngredient = (itemIngredient)=>{
         const itemIngredients = this.state.itemIngredients;
 
         delete itemIngredients[itemIngredient.id];
@@ -53,10 +53,10 @@ export class ItemIngredientsProvider extends React.Component{
     render(){
         const value = {
             itemIngredients: this.state.itemIngredients,
-            getIngredients: this.getIngredients,
-            addIngredient: this.addIngredient,
-            updateIngredient: this.updateIngredient,
-            removeIngredient: this.removeIngredient
+            getItemIngredients: this.getItemIngredients,
+            addItemIngredient: this.addItemIngredient,
+            updateItemIngredient: this.updateItemIngredient,
+            removeItemIngredient: this.removeItemIngredient
         };
         
         return (
