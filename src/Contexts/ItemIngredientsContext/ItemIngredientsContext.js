@@ -14,9 +14,37 @@ export class ItemIngredientsProvider extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            itemIngredients: {}
+            itemIngredients: {},
+            error: ""
         };
     };
+
+    componentDidMount(){
+        this.fetchItemIngredients();
+    }
+
+    fetchItemIngredients = ()=>{
+        fetch("http://localhost:8000/api/item_ingredients", {
+            'content-type': "application/json",
+        })
+            .then( res => {
+                if(!res.ok){
+                    return res.json().then( e => Promise.reject(e));
+                };
+
+                return res.json();
+            })
+            .then( resData => {
+                resData.itemIngredients.forEach((data, index)=>{
+                    this.addItemIngredient(data);
+                });
+            })
+            .catch( err => {
+                this.setState({
+                    error: err.error
+                });
+            });
+    }
 
     // gets all ingredients
     getItemIngredients = ()=>{
@@ -25,14 +53,22 @@ export class ItemIngredientsProvider extends React.Component{
 
     // adds item ingredient
     addItemIngredient = (itemIngredient)=>{
-        this.updateIngredient(itemIngredient);
+        this.updateItemIngredient(itemIngredient);
     }
 
     // updates an ingredient
     updateItemIngredient = (itemIngredient)=>{
         const itemIngredients = this.state.itemIngredients;
 
-        itemIngredients[itemIngredient.id] = itemIngredient;
+        if(itemIngredients[itemIngredient.category] === undefined){
+            itemIngredients[itemIngredient.category] = {};
+        };
+
+        if(itemIngredients[itemIngredient.category][itemIngredient.id]){
+            itemIngredients[itemIngredient.category][itemIngredient.id] = {};
+        };
+
+        itemIngredients[itemIngredient.category][itemIngredient.id] = itemIngredient;
 
         this.setState({
             itemIngredients
@@ -43,7 +79,15 @@ export class ItemIngredientsProvider extends React.Component{
     removeItemIngredient = (itemIngredient)=>{
         const itemIngredients = this.state.itemIngredients;
 
-        delete itemIngredients[itemIngredient.id];
+        if(itemIngredients[itemIngredient.category] === undefined){
+            itemIngredients[itemIngredient.category] = {};
+        };
+
+        if(itemIngredients[itemIngredient.category][itemIngredient.id]){
+            itemIngredients[itemIngredient.category][itemIngredient.id] = {};
+        };
+
+        delete itemIngredients[itemIngredient.category][itemIngredient.id];
 
         this.setState({
             itemIngredients

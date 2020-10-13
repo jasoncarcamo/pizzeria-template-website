@@ -93,8 +93,6 @@ export class OrdersProvider extends React.Component{
             removeCurrentOrder: this.removeCurrentOrder
         };
 
-        console.log(value)
-
         return (
             <OrdersContext.Provider value={value}>
                 {this.props.children}

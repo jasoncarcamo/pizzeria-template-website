@@ -1,6 +1,10 @@
 import React from 'react';
 import './App.css';
 import AppContext from "../Contexts/AppContext/AppContext";
+import {Route} from "react-router-dom";
+
+import LogIn from "../Components/LogIn/LogIn";
+import SignUp from "../Components/SignUp/SignUp";
 
 class App extends React.Component {
 
@@ -11,7 +15,8 @@ class App extends React.Component {
             <>
 
                 <main>
-                    <button onClick={()=>{ this.context.cartContext.updateCurrentOrder({id: 1, type: "Pasta"})}}>OK</button>
+                    <Route exact path="/login" component={LogIn}></Route>
+                    <Route exact path="/signup" component={SignUp}></Route>
                 </main>
                 
             </>

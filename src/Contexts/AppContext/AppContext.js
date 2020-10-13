@@ -14,7 +14,6 @@ export default AppContext;
 export class AppProvider extends React.Component{
 
     componentDidMount(){
-        console.log("App context mounted")
     }
 
     render(){
@@ -26,9 +25,6 @@ export class AppProvider extends React.Component{
             ordersContext: this.props.ordersContext,
             cartContext: this.props.cartContext
         };
-
-        console.log(value)
-        console.log(this.props.ordersContext)
 
         return (
             <AppContext.Provider value={value}>

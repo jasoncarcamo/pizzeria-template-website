@@ -17,6 +17,33 @@ export class MenuItemsProvider extends React.Component{
             error: ""
         };
     };
+
+    componentDidMount(){
+        this.fetchMenuItems();
+    }
+
+    fetchMenuItems = ()=>{
+        fetch("http://localhost:8000/api/menu_items", {
+            'content-type': "application/json",
+        })
+            .then( res => {
+                if(!res.ok){
+                    return res.json().then( e => Promise.reject(e));
+                };
+
+                return res.json();
+            })
+            .then( resData => {
+                resData.menuItems.forEach((data, index)=>{
+                    this.addMenuItem(data);
+                })
+            })
+            .catch( err => {
+                this.setState({
+                    error: err.error
+                });
+            });
+    }
     
     // retrieve all menu items
     getMenuItems = ()=>{
@@ -52,11 +79,11 @@ export class MenuItemsProvider extends React.Component{
         const menuItems = this.state.menuItems;
 
         if(menuItems[menuItem.category] === undefined){
-            return;
+            menuItems[menuItem.category] = {};
         };
 
         if(menuItems[menuItem.category][menuItem.id] === undefined){
-            return; 
+            menuItems[menuItem.category][menuItem.id] = {}; 
         };
 
         delete menuItems[menuItem.category][menuItem.id];
@@ -68,6 +95,7 @@ export class MenuItemsProvider extends React.Component{
 
     render(){
         const value = {
+            menuItems: this.state.menuItems,
             getMenuItems: this.getMenuItems,
             addMenuItem: this.addMenuItem,
             updateMenuItem: this.updateMenuItem,

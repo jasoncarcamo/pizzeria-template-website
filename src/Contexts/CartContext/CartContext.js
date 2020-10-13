@@ -43,8 +43,6 @@ export class CartProvider extends React.Component{
             removeCurrentOrder: this.removeCurrentOrder
         };
 
-        console.log(this.props.ordersContext)
-
         return (
             <CartContext.Provider value={value}>
                 {this.props.children}

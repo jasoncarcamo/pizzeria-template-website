@@ -50,11 +50,11 @@ export class OrderItemsProvider extends React.Component{
         const orderItems = this.state.orderItems;
 
         if(orderItems[orderItem.order_id]=== undefined){
-            return;
+            orderItems[orderItem.order_id] = {};
         };
 
         if(orderItems[orderItem.order_id][orderItem.id] === undefined){
-            return;
+            orderItems[orderItem.order_id][orderItem.id] = {};
         };
 
         delete orderItems[orderItem.order_id][orderItem.id];
