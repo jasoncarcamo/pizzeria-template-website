@@ -102,6 +102,8 @@ export class ItemIngredientsProvider extends React.Component{
             updateItemIngredient: this.updateItemIngredient,
             removeItemIngredient: this.removeItemIngredient
         };
+
+        console.log(value);
         
         return (
             <ItemIngredientsContext.Provider value={value}>

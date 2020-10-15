@@ -1,4 +1,5 @@
 import React from "react";
+import UserService from "../../../Services/UserServices/UserServices";
 
 export default class LogIn extends React.Component{
     constructor(props){
@@ -39,7 +40,7 @@ export default class LogIn extends React.Component{
                 return (
                     <div key={index}>
                         <label htmlFor={`login_${name}`}>{this.renderLabelName(name)}</label>
-                        <input id={`login_${name}`} name={name} value={this.state[name]} onChange={this.handleInput} placeholder={this.renderPlaceHolder(name)}/>
+                        <input id={`login_${name}`} name={name} type={(name === "password") ? "password" : "email"} value={this.state[name]} onChange={this.handleInput} placeholder={this.renderPlaceHolder(name)}/>
                     </div>
                 );
             };
@@ -51,7 +52,7 @@ export default class LogIn extends React.Component{
     handleLogIn = (e)=>{
         e.preventDefault();
 
-        fetch("https://localhost:8000/api/login", {
+        fetch("http://localhost:8000/api/login", {
             method: "POST",
             headers: {
                 'content-type': "application/json"
@@ -69,7 +70,10 @@ export default class LogIn extends React.Component{
                 return res.json();
             })
             .then( resData => {
-                console.log(resData);
+
+                UserService.saveToken(resData.token);
+
+                this.props.history.push("/menu")
             })
             .catch( err => {
                 this.setState({
@@ -79,6 +83,7 @@ export default class LogIn extends React.Component{
     }
 
     render(){
+        
         return (
             <form onSubmit={this.handleLogIn}>
                 <fieldset>

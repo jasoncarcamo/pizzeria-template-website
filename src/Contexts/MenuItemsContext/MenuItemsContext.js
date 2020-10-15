@@ -1,10 +1,15 @@
 import React from "react";
 
 const MenuItemsContext = React.createContext({
+    menuItems: {},
+    currentMenuItem: {},
     getMenuItems: ()=>{},
     addMenuItem: ()=>{},
     updateMenuItem: ()=>{},
-    removeMenuItem: ()=>{}
+    removeMenuItem: ()=>{},
+    setCurrentMenuItem: ()=>{},
+    updateCurrentMenuItem: ()=>{},
+    removeCurrentMenuItem: ()=>{}
 });
 
 export default MenuItemsContext;
@@ -13,6 +18,7 @@ export class MenuItemsProvider extends React.Component{
     constructor(props){
         super(props);
         this.state = {
+            currentMenuItem: {},
             menuItems: {},
             error: ""
         };
@@ -36,7 +42,7 @@ export class MenuItemsProvider extends React.Component{
             .then( resData => {
                 resData.menuItems.forEach((data, index)=>{
                     this.addMenuItem(data);
-                })
+                });
             })
             .catch( err => {
                 this.setState({
@@ -93,13 +99,33 @@ export class MenuItemsProvider extends React.Component{
         });
     };
 
+    setCurrentMenuItem = (menuItem)=>{
+        this.updateCurrentMenuItem(menuItem);
+    }
+
+    updateCurrentMenuItem = (menuItem)=>{
+        this.setState({
+            currentMenuItem: menuItem
+        });
+    }
+
+    removeCurrentMenuItem = ()=>{
+        this.setState({
+            currentMenuItem: {}
+        });
+    }
+
     render(){
         const value = {
             menuItems: this.state.menuItems,
             getMenuItems: this.getMenuItems,
             addMenuItem: this.addMenuItem,
             updateMenuItem: this.updateMenuItem,
-            removeMenuItem: this.removeMenuItem
+            removeMenuItem: this.removeMenuItem,
+            currentMenuItem: this.state.currentMenuItem,
+            setCurrentMenuItem: this.setCurrentMenuItem,
+            updateCurrentMenuItem: this.updateCurrentMenuItem,
+            removeCurrentMenuItem: this.removeCurrentMenuItem
         };
         
         return (

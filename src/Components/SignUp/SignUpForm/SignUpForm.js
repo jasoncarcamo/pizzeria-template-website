@@ -54,7 +54,7 @@ export default class SignUpForm extends React.Component{
                 return (
                     <div key={i}>
                         <label htmlFor={`signup_${name}`} key={i}>{this.renderLabelName(name)}</label>
-                        <input id={`signup_${name}`} name={name} value={this.state[name]} onChange={this.handleInput} placeholder={this.renderPlaceHolder(name)}/>
+                        <input id={`signup_${name}`} type={name === "password" || name === "confirm_password" ? "password" : name === "email" ? "email" : "text"} name={name} value={this.state[name]} onChange={this.handleInput} placeholder={this.renderPlaceHolder(name)}/>
                     </div>
                 );
             };
@@ -109,7 +109,7 @@ export default class SignUpForm extends React.Component{
             };
         };
 
-        fetch("https://localhost:8000/api/register", {
+        fetch("http://localhost:8000/api/register", {
             method: "POST",
             headers: {
                 'content-type': "application/json",

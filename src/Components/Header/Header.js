@@ -4,9 +4,9 @@ import {NavLink} from "react-router-dom";
 export default class Header extends React.Component{
     render(){
         return (
-            <header>
-                <nav>
-                    <ul>
+            <header id="header-container">
+                <nav id="nav-bar-container">
+                    <ul id="nav-links-container">
                         <li>
                             <NavLink
                                 to=""
@@ -16,10 +16,10 @@ export default class Header extends React.Component{
                         </li>
                         <li>
                             <NavLink
-                                to=""
+                                to="/menu"
                                 activeStyle={{
                                     
-                                }}></NavLink>
+                                }}>Menu</NavLink>
                         </li>
                         <li>
                             <NavLink

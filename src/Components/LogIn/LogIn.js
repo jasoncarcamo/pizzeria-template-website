@@ -5,7 +5,7 @@ export default class LogIn extends React.Component{
     render(){
         return (
             <section id="login-section">
-                <LogInForm/>
+                <LogInForm history={this.props.history}/>
             </section>
         );
     };
