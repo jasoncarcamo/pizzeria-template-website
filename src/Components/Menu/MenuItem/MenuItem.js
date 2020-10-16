@@ -1,5 +1,6 @@
 import React from "react";
 import AppContext from "../../../Contexts/AppContext/AppContext";
+import MenuItemIngredient from "./MenuItemIngredient/MenuItemIngredient";
 
 export default class MenuItem extends React.Component{
     constructor(props){
@@ -21,7 +22,6 @@ export default class MenuItem extends React.Component{
             pathName = pathName.join("/");
 
             return this.props.history.push(pathName);
-            
         };
 
         this.setState({
@@ -35,11 +35,29 @@ export default class MenuItem extends React.Component{
         });
     }
 
+    getItemIngredients = ()=>{
+        const itemIgredients = this.context.itemIngredientsContext.itemIngredients;
+        let menuItemIngredients = itemIgredients[this.context.menuItemsContext.currentMenuItem.category];
+
+        // exits function in case there is no current menu in context
+        // mainly in case a user refreshes
+        if(!this.context.menuItemsContext.currentMenuItem.category){
+            return;
+        };
+
+        menuItemIngredients = Object.keys(menuItemIngredients).map((key, index)=>{
+
+            return <MenuItemIngredient key={index} menuItemIngredient={menuItemIngredients[key]}/>;
+        });
+
+        return menuItemIngredients;
+    }
+
     render(){
-        console.log(this.state);
+        console.log(this.context);
         return(
             <section className="menu-item-container">
-                {this.state.currentMenuItem.ingredients}
+                {this.getItemIngredients()}
             </section>
         );
     };
