@@ -80,7 +80,7 @@ export default class LogIn extends React.Component{
                     error: err.error
                 });
             });
-    }
+    };
 
     render(){
         
