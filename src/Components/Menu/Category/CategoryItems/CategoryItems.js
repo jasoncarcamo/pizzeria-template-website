@@ -40,7 +40,7 @@ export default class CategoryItems extends React.Component{
         });
 
         return categoryItems
-    }
+    };
 
     render(){
 
