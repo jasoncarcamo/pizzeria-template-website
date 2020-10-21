@@ -39,7 +39,7 @@ export default class CategoryItems extends React.Component{
             return <CategoryItem key={i} menuItem={menuItems[menuItem]} history={this.props.history}/>
         });
 
-        return categoryItems
+        return categoryItems;
     };
 
     render(){
